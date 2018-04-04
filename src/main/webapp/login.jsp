@@ -23,7 +23,7 @@
 		<table>
 			<tr><td>Username</td></tr>
 		 	<tr><td><input type="text" name="userName" id="userName" /></td></tr>
-			<tr><td>Password</td></tr>
+  			<tr><td>Password</td></tr>
 			<tr><td><input type="password" name="passWrd" id="passWrd" /></td></tr>
 			<tr><td>Location</td></tr>
 			<tr><td><input type="text" name="location" id="location" /></td></tr>
