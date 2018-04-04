@@ -1,0 +1,217 @@
+Wrapper classes
+------------------
+
+class Boolean{
+ public static boolean parseBoolean(String){}
+}
+class Byte{
+ public static byte parseByte(String){}
+}
+class Short{
+ public static short parseShort(String){}
+}
+class Integer{
+ public static int parseInt(String){}
+}
+Long
+Float
+Double
+Character
+
+Scanner API - java.util
+------------------------
+class Scanner{
+ String next(){}
+ String nextLine(){} 
+ boolean nextBoolean(){}
+}
+
+java.io	- stream[byte/char]
+--------------------------------------
+
+byte			char
+
+InputStream		Reader
+OutputStream		Writer
+
+BufferedReader br=new BufferedReader(new InputStream(System.in));
+
+Collection(I)
+
+boolean add(Object obj);
+boolean addAll(Collection c);
+int size();
+boolean remove(Object);
+boolean removeAll(Collection c);
+boolean retainAll(Collection c);
+void clear();
+boolean contains(Object obj)
+boolean containsAll(Collection c);
+Iterator iterator();
+Object[] toArray();
+
+List(I)
+boolean add(int index, Object obj)
+boolean addAll(int index, Object obj)
+boolean set(int index, Object obj);
+Object get(int index);
+Object remove(int index)
+
+
+Map(I)
+Object put(Object, Object);
+void putAll(Map obj);
+Object remove(Object key);
+Object get(Object key);
+boolean containsKey(Object key);
+Set<Map.Entry> entrySet();
+Set keySet();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ArrayList<String> obj = new ArrayList<E>();
+
+HashSet<Integer> obj = new HashSet<E>();
+
+HashMap<Integer, Student> obj = new HashMap<K, V>();
+
+
+List<Customer> cList = new ArrayList<Customer>();
+
+Set<String> mSet = new TreeSet<String>();
+Set<String> mSet = new TreeSet<String>().desentingSet();
+
+
+Map<Integer, String> cMap = new TreeMap<Integer, String>().desentingMap();
+
+
+
+
+
+
+
+1. init
+
+public void init(ServletConfig config){
+}
+
+2. service
+
+public void service(ServletRequest request, ServletResponse response)throws ServletException, IOException{
+}
+
+3. destroy
+
+public void destroy(){}
+
+ServletRequest
+public String getParameter(String);
+public String[] getParameterValues(String);
+public Enumeration getParameterNames();
+public Map<K, V> getParameterMap();
+public String setAttribute(String key, Object value);
+public Object getAttribute(String key);
+public void removeAttribute(String key);
+public RequestDispatcher getRequestDispatcher(String url);
+ 
+
+HttpServletRequest
+Cookie[] getCookies()
+HttpSession getSession()
+
+
+
+ServletResponse
+public PrintWriter getWriter();
+public void setContentType(String)
+public void setLocale(String type);
+public Locale getLocale();
+
+
+HttpServletResponse
+public void sendRedirect(String);
+public void sendError(int sc, String msg);
+public void setStatus(int sc);
+public void addCookie(Cookie obj);
+
+
+HttpServlet
+
+public void doGet(HttpServletRequest request, 
+		  HttpServletResponse response)throws 		  ServletException, IOException{
+}
+
+ServletConfig
+public String getInitParameter(String param-name);
+
+
+
+ServletContext
+
+
+Session Management Techniques
+1. URL Rewriting
+2. Hidden form fields
+3. Cookies
+4. HttpSession
+
+
+
+github.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
