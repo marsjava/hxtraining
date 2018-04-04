@@ -172,6 +172,53 @@ Session Management Techniques
 
 github.com
 
+Session Management Technique:
+
+Session Object: It is container used for storing user states in server.
+
+HttpSession(I)
+
+String setAttribute(String, Object)
+Object getAttribute(String)
+void removeAttribute(String)
+Enumeration getAttributeNames()
+String getId()
+long getLastAccessedTime()
+void setMaxInactiveInterval(int interval)
+int getMaxInactiveInterval()
+void invalidate();  
+
+HttpSession session = request.getSession()
+session.setAttribute(key, value);
+session.getAttribute(key);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -19,13 +19,15 @@
 		}
 	%>
 	<legend>My Login Page</legend>
-	<form action="Login" method="get">
+	<form action="Login1" method="get">
 		<table>
 			<tr><td>Username</td></tr>
-			<tr><td><input type="text" name="userName" id="userName" /></td></tr>
+		 	<tr><td><input type="text" name="userName" id="userName" /></td></tr>
 			<tr><td>Password</td></tr>
 			<tr><td><input type="password" name="passWrd" id="passWrd" /></td></tr>
-			<tr><td><input type="submit" value="Login" /></td></tr>		
+			<tr><td>Location</td></tr>
+			<tr><td><input type="text" name="location" id="location" /></td></tr>
+			<tr><td><input type="submit" value="Login" /></td></tr>					
 		</table>
 	</form>
 </fieldset>

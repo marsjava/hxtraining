@@ -1,0 +1,218 @@
+Constructor based dependency injection
+
+package model;
+
+public class Aadhar {
+public Aadhar()
+{
+	System.out.println("Aadhar card is mandatory for Indian citizen");
+	
+}
+public void getAadar()
+{
+	System.out.println("State government will provide the Adar card");
+}
+}
+package model;
+
+public class Passport {
+	private Aadhar aadhar;
+	public Passport(Aadhar aadhar)
+	{
+		System.out.println("Inside constructor");
+							
+		this.aadhar=aadhar;
+	}
+	public void call()
+	{
+		aadhar.getAadar();
+	}
+}
+package model;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+
+public static void main(String[] args) {
+ApplicationContext context = 
+	             new ClassPathXmlApplicationContext("Bean.xml");
+Passport pass=(Passport)context.getBean("di");
+		pass.call();
+
+	}
+
+}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="di" class="model.Passport">
+    <constructor-arg ref="aadhar"/>
+    </bean>
+    <bean id="aadhar" class="model.Aadhar">
+    </bean>
+    </beans>
+
+Demo For Function based dependency
+package model;
+
+public class Aadhar {
+public Aadhar()
+{
+	System.out.println("Aadhar card is mandatory for Indian citizen");
+	
+}
+public void getAadar()
+{
+	System.out.println("State government will provide the Adar card");
+}
+}
+package model;
+
+public class Passport {
+	private Aadhar aadhar;
+	public void setAadhar(Aadhar aadhar) {
+		this.aadhar = aadhar;
+	}
+	
+	public Aadhar getAadhar() {
+		return aadhar;
+	}
+	
+	public void call()
+	{
+		aadhar.getAadar();
+	}
+}
+package model;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+
+public static void main(String[] args) {
+ApplicationContext context = 
+	             new ClassPathXmlApplicationContext("Bean.xml");
+Passport pass=(Passport)context.getBean("di");
+		pass.call();
+
+	}
+
+}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="di" class="model.Passport">
+    <property name="aadhar">
+        <bean id="aadhar" class="model.Aadhar"/>
+        </property>
+    </bean>
+    </beans>
+
+Collection Based dependency injection
+package model;
+import java.util.*;
+
+public class JavaCollection {
+	private List list;
+	
+	public void setList(List list) {
+		this.list = list;
+	}
+	
+	public List getList() {
+		return list;
+	}
+
+}
+
+package model;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+
+public static void main(String[] args) {
+ApplicationContext context = 
+	             new ClassPathXmlApplicationContext("Bean.xml");
+JavaCollection jv=(JavaCollection)context.getBean("jc");
+		System.out.println(jv.getList());
+
+	}
+
+}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="jc" class="model.JavaCollection">
+    <property name="list">
+       <list>
+       <value>One</value>
+       <value>Two</value>
+       <value>Three</value>
+       <value>Four</value>
+       <value>Five</value>
+       
+       </list>
+        </property>
+    </bean>
+    </beans>
+   <bean id="javaCollection" class="com.tutorialspoint.JavaCollection">
+
+      <!-- results in a setAddressList(java.util.List) call -->
+      <property name="list">
+         <list>
+            <value>One</value>
+            <value>Two</value>
+            <value>Three</value>
+            <value>Four</value>
+         </list>
+      </property>
+
+      <!-- results in a setAddressSet(java.util.Set) call -->
+      <property name="set">
+         <set>
+            <value>Apple</value>
+            <value>Banana</value>
+            <value>Grapes</value>
+            <value>Guva</value>
+        </set>
+      </property>
+
+      <!-- results in a setAddressMap(java.util.Map) call -->
+      <property name="map">
+         <map>
+            <entry key="Kashmir" value="Apple"/>
+            <entry key="Hyderabad" value="Pearl"/>
+            <entry key="Coorg" value="Coffee"/>
+            <entry key="Thirupur" value="cotton"/>
+         </map>
+      </property>
+      
+      <!-- results in a setAddressProp(java.util.Properties) call -->
+      <property name="addressProp">
+         <props>
+            <prop key="one">INDIA</prop>
+            <prop key="two">Pakistan</prop>
+            <prop key="three">USA</prop>
+            <prop key="four">USA</prop>
+         </props>
+      </property>
+
+   </bean>
+
+</beans>
+
+
