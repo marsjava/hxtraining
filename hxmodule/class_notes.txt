@@ -68,20 +68,6 @@ Set<Map.Entry> entrySet();
 Set keySet();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ArrayList<String> obj = new ArrayList<E>();
 
 HashSet<Integer> obj = new HashSet<E>();
@@ -96,11 +82,6 @@ Set<String> mSet = new TreeSet<String>().desentingSet();
 
 
 Map<Integer, String> cMap = new TreeMap<Integer, String>().desentingMap();
-
-
-
-
-
 
 
 1. init
@@ -156,6 +137,7 @@ public void doGet(HttpServletRequest request,
 
 ServletConfig
 public String getInitParameter(String param-name);
+public ServletContext getServletContext()
 
 
 
@@ -191,6 +173,220 @@ void invalidate();
 HttpSession session = request.getSession()
 session.setAttribute(key, value);
 session.getAttribute(key);
+
+Design Pattern
+1. Functional Design
+2. Data Design
+3. Interface Design
+
+Directives:
+It provides meta data infomation about the JSP file to the web container.
+
+a. importing tag libraries
+b. import required classes
+c. set output buffering options
+d. include the content from external files[header/footer.html]
+
+<%@page %>
+
+1. buffer="none|8kb|16kb.."
+2. autoFlush="true/false"
+3. contentType="text/html;charSet=ISO-8859-1"
+4. errorPage="error.jsp"
+5. isErrorPage="true/false"
+6. extends="BaseClassName"
+7. import="java.util.Date,java.io.BufferedReader"
+8. info=""
+9. isThreadSafe="true/false"
+10. language="java"
+11. session="true"
+12. isELIgnored="true/false"
+13. isScriptingEnabled = "true/false"
+
+
+JSP Action Tags:
+<jsp:actionTag_Name attribute="value">
+
+<jsp:include page="pageName" />
+
+<jsp:forward page="pageName">
+  <jsp:param name="value" value="data"/>
+</jsp:forward>
+
+<jsp:useBean id="name" 
+			 class="packagename.classname" 
+             scope="page/request/session/application"
+             type=""
+             beanName="">
+<jsp:setProperty name="beanId" 
+                 property="NameofVariable" 
+                 value="uiComponentName"/>
+e.g.
+<jsp:useBean id="emp" class="com.varsity.model.Employee" scope="request"/>
+<jsp:setProperty name="emp" property="empId" value="empId" />
+[or]
+<jsp:setProperty name="emp" property="*"/>
+<jsp:getProperty name="beanId" property="propertyName" />
+
+
+SimpleTagSupport
+
+doTag()
+getParent() 
+setParent()
+setJspContext(JspContext context)
+JspContext getJspContext()
+JspFragment getJspBody()
+
+JspContext
+JspWriter getOut()
+
+JspFragment
+invoke(Writer obj)
+
+Tags with Attribute.
+
+Step1: Add attribute as a property to the tag handler.
+
+Step2: Create setter method for the property follwing the bean setter naming convention.
+
+Expression Language [EL]
+
+EL is simple language for accessing data stored in java beans.
+EL was introduced with the JSP 2.0 specification
+EL can also be used access values from implicit objects like pageContext,
+header, cookie etc.
+syntax:
+	${person.name}
+
+pageContext
+param
+paramValues
+header
+headerValues
+cookie
+initParam
+pageScope
+requestScope
+sessionScope
+applicationScope
+
+.operator
+${sessionScope.message}
+
+[] operator
+${sessionScope[message]}
+
++, -, *, / or div, % or mod
+
+&& or and, || or OR, ! or not
+
+== or eq, != or ne, < or lt, > or gt, >= or ge, <= or le
+
+
+${param.name}
+${param["name"]}
+
+${paramValues.name[0]}
+${paramValues.name["0"]}
+
+${header.location}
+${header["location"]}
+
+${requestScope.emp.empName}
+${requestScope.emp[empName]}
+${requestScope.emp["empName"]}
+
+
+
+EL - Demo
+
+Components to be developed.
+
+1. registration.jsp
+2. RegistrationServlet.java
+3. User.java [bean class]
+4. welcome.jsp
+
+Some values irrelevant to the problem statement is also printed such as 
+user-agent. This is purely for the associate to understand.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
