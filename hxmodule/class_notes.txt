@@ -312,6 +312,306 @@ Some values irrelevant to the problem statement is also printed such as
 user-agent. This is purely for the associate to understand.
 
 
+Spring - JDBC Framework
+
+JdbcTemplate - class
+
+com.spcore.jdbc.model  - Person, PersonMapper
+com.spcore.jdbc.dao	   - PersonDAO, PersonDAOImpl
+com.spcore.jdbc.client - PersonApp
+
+Execute SQL statements
+class JdbcTemplate{
+execute()
+update()
+query()
+ |_int queryForInt()
+ |_long queryForLong()
+ |_Object queryForObject()
+ |_List<Employee> queryForList()
+}
+
+
+Case 1: Quering for an integer:
+
+String sql = "select count(*) from employee";
+int rowCount = tobj.queryForInt(sql);
+long rowCount = tobj.queryForLong(sql);
+
+Case 2: A bind variable:
+String sql = "select salary from employee where empid=?";
+long mySalary = tobj.queryForLong(sql, new Object[]{1012});
+
+String sql = "select empname from employee where empid=?";
+String myName = tobj.queryForObject(sql, new Object[]{1012},String.class);
+
+String sql = "select * from employee where empid=?";
+Employee e = tobj.queryForObject(sql, new Object[]{1012},new EmployeeMapper());
+
+String sql = "select * from employee";
+List<Employee> eList = tobj.query(sql, new EmployeeMapper()); 
+
+public class EmployeeMapper implements RowMapper<Employee>{
+ 	public Employee mapRow(ResultSet rs, int rowNum)throws SQLException{
+ 		Employee e = new Employee();
+ 		e.setEmpId(rs.getEmpId("empid"));
+ 		e.setEmpName(rs.getEmpName("empname"));
+ 		e.setEmpSalary(rs.getEmpSalary("salary"));
+ 	}
+}
+
+case 3: Inserting a row into the table
+String sql = "insert into employee(id, name, salary)values(?,?,?);
+tobj.update(sql, new Object[]{1101,"Ram",35000});
+
+case 4: updating a row into the table
+String sql = "update employee set salary=? where id=?";
+tobj.update(sql, new Object[]{46000,1101});
+
+case 5: deleting a row from the table
+String sql = "delete employee where id=?";
+tobj.update(sql, new Object[]{1102});
+
+		Spring MVC
+	--------------------------
+1. Build the Maven webapp project.
+2. update the version[java&web] from navigator->setting-> open the xml file.
+3. pom.xml add required jar files.
+   [spring-core|spring-webmvc|spring-context|spring-jdbc|spring-tx]
+   [mysql-connector-java|log4j|jstl]
+4. update the web-app module version in web.xml file.
+5. maven updation 
+-------------------------------------------------------
+1. create index.jsp 
+2. create controller class
+   [ @Controller | @RequestMapping | ModelAndView ]
+3. In web.xml file configure the Dispatcher servlet [servletname-servlet.xml]
+4. create the Handler mapping in WEB-INF/hxvarsity-servlet.xml file    
+  -> context:component-scan define the base-package where 
+  DispatcherServlet will search the controller class
+  -> InternalResourceViewResolver class is used for the ViewResolver
+    
+interface RowMapper{
+ mapRow(ResultSet rs, int row);
+}
+
+class BeanPropertyRowMapper<Employee>{
+ BeanPropertyRowMapper<Employee>(Employee e){ 
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://jsonplaceholder.typicode.com/posts
+https://jsonplaceholder.typicode.com/posts/1
+
+Services/SOA/Micservices/Webservices
+
+  It is not specific technology
+The ultimate purpose to reuse - company stable
+Enterprise App. Integration
+RPC - Remote procedure call
+
+Google/Gmail/facebook login
+
+why is it called REST[Representationl State Transfer]?
+
+Big SOA
+
+Web Services
+
+Build distributed systems.
+Enable business to business integration.(Suppose one organization uses corba and another uses .net)
+enable Service oriented architecture.
+Adopted by the grid computing
+May exist  internally to an organization to externally in the cloud
+SOAP based(WS-) web services
+REST style web 
+
+RESTful:
+Roy fielding's doctoral dissertation 2000
+Fielding (along with Tim Berners-Lee) designed HTTP and URIs
+REST - what/why?
+REST is not tied to the web i.e. doesn't depend on the mechanics of HTTP
+architectural style of the web
+HTTP provides 4 basic methods for CRUD 
+GET	retrieve representation of resource
+PUT	update/modify existing resource
+POST	create a new resource
+DELETE	delete an existing resource
+
+REST Design guidelines:
+All routes/endpoint/api should be collection or element of a collection
+It should be noun e.g. courses/java/guvi/book/series/ etc..
+Use delete verb to remove single element (restrict deleting collection subective)
+follow same path (url) pattern thoughout the collection
+
+http://service.hexvarsity.com/g2
+http://service.hexvarsity.com/g2/java
+http://service.hexvarsity.com/g2/java/java8
+
+create employee eid int(11) primary key,
+ename varchar(30), 
+desig varchar(20),
+creation_date date);
+
+
+create table employee(
+emp_id int(11) auto_increment, 
+emp_name varchar(20) not null,
+emp_salary double(10,0) not null default 0,
+primary key(emp_id));
+
+create table address (
+emp_id int(11) unsigned not null, 
+address_line varchar(100) not null default '', zipcode varchar(10) default null, 
+city varchar(20) default null, 
+primary key(emp_id), 
+constraint emp_fk foreign key(emp_id) references employee(emp_id));
+HQL -> Hibernate Query Language
+
+HQL from clause
+
+Session-> createQuery()
+
+SQL: select * from employee;
+HQL: from employee;
+
+SQL: select * from employee where id=?;
+HQL: from employee where id=:id;
+
+HQL: update employee set name=:name, desig=:desig where empid=:empid;
+HQL: delete from employee where empid=:empid;
+
+HQL Join:
+select e.name, e.desig, a.address, a.city from employee e inner join address a on e.empid=a.empid
+
+HQL Aggregate function
+select e.dept, sum(e.salary) from employee e group by e.dept;
+->from employee e order by e.name desc
+
+HQL expressions
+HQL support order by and group by clauses
+HQL allows to write the sub queries 
+HQL support all are DDL, DML & executing stored procedure.
+
+
+Steps for creating Explicit Cursors
+
+Step 1: declare the cursor
+syntax: cursor cursor_name is select statement;
+e.g.,
+
+cursor cur_loan_info is select * from g2_loan;
+cursor cur_get_info(id) is select * from g2_loan where loan_id=id
+
+Step 2: Open the cursor
+syntax: open cursor_name	
+e.g.,
+	open cur_loan_inof; 
+	open cur_get_into(1101);
+
+Step 3: fetch the result into PL/SQL variables
+syntax:	
+	fetch cursor_name into list_of_variables;
+	fetch cursor_name into PL/SQL record;
+e.g.,
+	fetch cur_loan_info into amount;
+
+Step 4: close the cursor.
+	close cursor_name
+
+PL/SQL Cursor have a 4 attributes 
+
+1. %ISOPEN		
+			if cursor_name%ISOPEN then close cursor_name;
+			end if;
+2. %FOUND		if cursor_name%FOUND then
+			  dbms_output.put_line('Records available');
+			end if;
+3. %NOTFOUND
+4. %ROWCOUNT		dbms_output.put_line(cursor_name%ROWCOUNT);
+
+Triggers
+
+create or replace trigger trigger_name
+{before|after|instead of}
+{inser|update|delete[of columns]}
+on table_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://central.maven.org/maven2/com/sun/faces/jsf-api/2.2.9/
+http://central.maven.org/maven2/com/sun/faces/jsf-impl/2.2.9/
+
+
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>com.varsity.model.LoginBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
 
 
 
